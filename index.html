@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Psychic Game</title>
+</head>
+
+<body>
+  <div id="psychicAct">
+    
+    <h1>Welcome to the Guessing Game</h1>
+    
+    <h3>Wins:
+      <p id="wins"></p>
+    </h3>
+    
+    <h3>Loses:
+      <p id="loses"></p>
+    </h3>
+    
+    <h3>Chances left:
+      <p id="chanceLeft"></p>
+    </h3>
+    
+    <p>Guess what letter I'm thinking of:</p>
+    
+    <p id="guessed"></p>
+  
+  </div>
+</body>
+<script type="text/javascript">
+	alert("You there! Come test your luck and play a little guessing game!")
+  alert("The rules are simple: All you have to do is try to guess what letter I am thinking")
+  alert("You only get 10 chances to guess though so be careful!")
+	
+
+  var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+	var wins = 0;
+	var loses = 0;
+	var chancesLeft, guessedLetters, letterToGuess;
+
+	resetGame();
+	display();
+
+	document.onkeyup = function(event) {
+  	var guess = event.key;
+  	if (guess === letterToGuess) {
+    	win();
+  	} 
+  	else if (chancesLeft - 1 === 0) {
+    	lost();
+  	} 
+  	else {
+    	fail(guess);
+  	}
+
+  	display();
+	}
+
+  function display() {
+    var winsP = document.getElementById("wins");
+    var losesP = document.getElementById("loses");
+    var chanceLeft = document.getElementById("chanceLeft");
+    var letterGuessed = document.getElementById("guessed");
+    winsP.innerHTML = wins;
+    losesP.innerHTML = loses;
+    chanceLeft.innerHTML = chancesLeft;
+    letterGuessed.innerHTML = guessedLetters.join(',');
+  }
+
+  function win() {
+    wins++;
+    resetGame();
+  }
+
+  function lost() {
+    loses++;
+    resetGame();
+  }
+
+  function fail(letter) {
+    chancesLeft--;
+    guessedLetters.push(letter);
+  }
+
+  function resetGame() {
+    chancesLeft = 10;
+    guessedLetters = [];
+    letterToGuess = letters[Math.floor(Math.random() * letters.length)];
+    console.log("Letter to guess: " + letterToGuess);
+  }
+</script>
+</html>
